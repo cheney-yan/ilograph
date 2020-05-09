@@ -1,0 +1,835 @@
+resources:
+  - name: Ilograph
+    subtitle: Application
+    description: Advanced diagramming application for creating dynamic, multi-perspective diagrams
+    icon: 
+      path: AWS/_General/Client.svg
+    
+  - name: Users
+    subtitle: Application Users
+    style: plural
+    description: End users of Ilograph
+    icon:
+      path: AWS/_General/Users.svg
+      
+  - name: Table
+    subtitle: Table
+    abstract: true
+    icon: 
+      path: AWS/Database/DynamoDB_Table.svg
+      
+  - name: Attribute
+    subtitle: Attribute
+    abstract: true
+    icon: 
+      path: AWS/Database/DynamoDB_Attribute.svg
+      
+  - name: Lambda
+    subtitle: Lambda
+    abstract: true
+    icon: 
+      path: AWS/Compute/Lambda.svg
+      
+  - name: Bucket
+    subtitle: Bucket
+    abstract: true
+    icon: 
+      path: AWS/Storage/S3_Bucket.svg
+      
+  - name: AliasRecord
+    subtitle: Alias Record
+    abstract: true
+    icon: 
+      path: AWS/Networking & Content/Route-53_Route-Table.svg
+      
+  - name: Resource
+    subtitle: Resource
+    abstract: true
+    icon: 
+      path: AWS/Networking & Content/API-Gateway_Endpoint.svg
+      
+  - name: Distribution
+    subtitle: Distribution
+    abstract: true
+    icon: 
+      path: AWS/Networking & Content/CloudFront.svg
+
+  - name: Amazon Web Services
+    icon: 
+      path: AWS/_Group Icons/Cloud-alt.svg
+    subtitle: Cloud Platform
+    color: DarkOrange
+    description: Cloud platform managed by Amazon, Inc.
+    children:
+      - name: Region
+        subtitle: Region
+        color: green
+        style: dashed
+        abstract: true
+        
+      - name: Global
+        instanceOf: Region
+        description: Global resources are not part of a particular region
+        
+      - name: N. Virginia
+        instanceOf: Region
+        description: A region in Northern Virginia
+    
+      - name: CloudFront
+        subtitle: Cloud CDN Service
+        description: A CDN which speeds up the distribution of content to end users
+        style: dashed
+        icon: 
+          path: AWS/Networking & Content/CloudFront.svg
+        children:
+          - name: d3dxxxxx.cloudfront.net
+            instanceOf: Distribution
+            
+          - name: d2wxxxxx.cloudfront.net
+            instanceOf: Distribution
+            
+          - name: d3exxxxx.cloudfront.net
+            instanceOf: Distribution
+        
+      - name: API Gateway
+        subtitle: Cloud API Service
+        color: dimgrey
+        style: dashed
+        description: Service for creating REST APIs for lambdas and other services
+        icon: 
+          path: AWS/Mobile/API-Gateway.svg
+        children:
+          - name: ilographV0
+            subtitle: API
+            description: The Ilograph REST API
+            children:
+              - id: graph
+                color: darkgreen
+                name: /ilograph
+                instanceOf: Resource
+                description: Resources for Ilographs
+                children:
+                  - id: ns
+                    name: /{ns}
+                    instanceOf: Resource
+                    description: Resource for a specific Ilograph diagram
+                    children:
+                      
+                    - id: data
+                      name: /data
+                      instanceOf: Resource
+                      description: The data field of a specific Ilograph diagram
+                      
+                    - id: private
+                      name: /private
+                      instanceOf: Resource
+                      description: The privacy field of a specific Ilograph  diagram
+                    - id: permissions
+                      name: /permissions
+                      instanceOf: Resource
+                      description: The permissions of a specific Ilograph diagram
+                        
+                    - id: sha
+                      name: /sha
+                      instanceOf: Resource
+                      description: The sha field of a specific Ilograph diagram
+                        
+                    - id: permission
+                      name: /permission
+                      instanceOf: Resource
+                      description: The permission the calling user has for a specific Ilograph  diagram
+                      
+              - name: token
+                color: darkgreen
+                instanceOf: Resource
+                description: Resources for 3rd-party tokens
+                children: 
+                  - name: github
+                    instanceOf: Resource
+                    description: Github-Ilograph access tokens
+
+      - name: Lambda
+        subtitle: Cloud Code Execution Service
+        color: OrangeRed
+        style: dashed
+        description: Allows running of code without provisioning dedicated servers
+        icon: 
+          path: AWS/Compute/Lambda.svg
+        children:
+          - name: listIlographs
+            instanceOf: Lambda
+            description: Returns a list of diagram for a given user
+            
+          - name: getIlograph
+            instanceOf: Lambda
+            description: Returns the contents of the requested Ilograph diagram
+            
+          - name: createIlograph
+            instanceOf: Lambda
+            description: Creates a new Ilograph diagram
+            
+          - name: deleteIlograph
+            instanceOf: Lambda
+            description: Deletes a given Ilograph diagram
+            
+          - name: setIlographData
+            instanceOf: Lambda
+            description: Updates the content of an Ilograph diagram
+            
+          - name: setPrivacy
+            instanceOf: Lambda
+            description: Sets the privacy of an Ilograph diagram
+            
+          - name: getSha
+            instanceOf: Lambda
+            description: Gets the most recent sha of an Ilograph diagram
+            
+          - name: getPermission
+            instanceOf: Lambda
+            description: Gets the calling user's permission for an Ilograph diagram
+            
+          - name: getPrivacy
+            instanceOf: Lambda
+            description: Gets the privacy of an Ilograph diagram
+            
+          - name: getGitHubToken
+            instanceOf: Lambda
+            description: Gets a GitHub access token for a user
+            
+          - name: getPermissions
+            instanceOf: Lambda
+            description: Gets all user permissions for an Ilograph diagram
+            
+          - name: setPermission
+            instanceOf: Lambda
+            description: Sets a user's permission for an Ilograph diagram
+        
+      - name: SES
+        color: CadetBlue
+        subtitle: Cloud Email Service
+        description: Allows sending and receiving emails programmatically
+        style: dashed
+        icon: 
+          path: AWS/Customer Engagement/Simple-Email-Service-SES.svg
+        children: 
+        - name: notifications@ilograph.com
+          subtitle: Email address
+          description: Email address for sending app notifications
+          icon:
+            path: AWS/Customer Engagement/Simple-Email-Service-SES_Email.svg
+      - name: Cognito
+        subtitle: Cloud User Authentication Service
+        color: BlueViolet
+        description: Service for managing and authenticating users
+        style: dashed
+        icon: 
+          path: AWS/SIC/Cognito.svg
+        children:
+          - name: iloUsers
+            subtitle: User Pool
+            description: The user pool for the Ilograph app
+            icon: 
+              path: AWS/SIC/Cognito.svg
+            children: 
+            - name: Users
+              subtitle: Cognito Users
+              style: plural
+              icon: 
+                path: AWS/SIC/Cognito.svg
+        
+      - name: DynamoDB
+        subtitle: Cloud Database Service
+        description: A managed, proprietary NoSQL database service that supports key-value and document data structures
+        style: dashed
+        icon: 
+          path: AWS/Database/DynamoDB.svg
+        color: Navy
+        children:
+          - name: Permissions
+            instanceOf: Table
+            description: Table storing diagram permissions, where each row is one permission
+            children: 
+            - name: User
+              instanceOf: Attribute
+              icon: 
+                path: AWS/Database/DynamoDB_Attribute.svg
+            - name: Diagram Name
+              instanceOf: Attribute
+            - name: Permission
+              instanceOf: Attribute
+            
+          - name: Ilographs
+            instanceOf: Table
+            description: Table storing metadata for Ilograph diagrams, where each row is one Ilograph
+            children: 
+            - name: Creator
+              instanceOf: Attribute
+            - name: Diagram Name
+              instanceOf: Attribute
+            - name: Sha
+              instanceOf: Attribute
+            
+          - name: History
+            instanceOf: Table
+            description: Table storing historical metadata for Ilograph diagrams
+            children:
+            - name: User
+              instanceOf: Attribute
+            - name: Diagram Name
+              instanceOf: Attribute
+            - name: Sha
+              instanceOf: Attribute
+        
+      - name: S3
+        subtitle: Cloud File Storage Service
+        color: Red
+        description: A file storage service that stores files in "buckets"
+        style: dashed
+        icon: 
+          path: AWS/Storage/S3.svg
+        children:
+          - name: app.ilograph.com
+            instanceOf: Bucket
+            description: Stores static assets of the Ilograph app
+            
+          - name: www.ilograph.com
+            instanceOf: Bucket
+            description: Stores static assets of the Ilograph homepage
+            
+          - name: blog.ilograph.com
+            instanceOf: Bucket
+            description: Stores static assets of the Ilograph blog
+            
+          - name: diagrams.ilograph.com
+            instanceOf: Bucket
+            description: Stores diagram files
+            children: 
+            - name: Diagrams
+              style: plural
+              subtitle: Files
+              description: Each version of an Ilograph diagram is stored as a separate file
+        
+      - name: Route 53
+        subtitle: Cloud DNS Service
+        description: A scalable DNS service
+        color: firebrick
+        style: dashed
+        icon: 
+          path: AWS/Networking & Content/Route-53.svg
+        children:
+          - name: ilograph.com
+            subtitle: Hosted Zone
+            description: Zone for all ilograph.com subdomains
+            children:
+            - name: api.ilograph.com
+              instanceOf: AliasRecord
+              
+            - name: app.ilograph.com
+              instanceOf: AliasRecord
+              
+            - name: www.ilograph.com
+              instanceOf: AliasRecord
+              
+            - name: blog.ilograph.com
+              instanceOf: AliasRecord
+        
+      - name: Ilograph
+        subtitle: AWS Account
+        
+  - name: Ilograph Back-End
+    subtitle: Git Repository
+    description: Codebase for the Ilograph back-end
+    color: dimgrey
+    children:
+      - name: cache.ts
+        subtitle: Module
+        children: 
+        - name: cacheEntry()
+          subtitle: Function
+        - name: getEntryFromCache()
+          subtitle: Function
+        
+      - name: createIlograph.ts
+        subtitle: Module
+        children:
+          - name: createIlograph()
+            subtitle: Function
+            
+      - name: deleteIlograph.ts
+        subtitle: Module
+        children:
+          - name: deleteIlograph()
+            subtitle: Function
+            
+      - name: getIlograph.ts
+        subtitle: Module
+        children:
+          - name: getIlograph()
+            subtitle: Function
+            
+      - name: getUsername.ts
+        subtitle: Module
+        children:
+          - name: getUsername()
+            subtitle: Function
+            
+      - name: listIlographs.ts
+        subtitle: Module
+        children:
+          - name: listIlographs()
+            subtitle: Function
+            
+      - name: permission.ts
+        subtitle: Module
+        children:
+          - name: getPermission()
+            subtitle: Function
+            
+          - name: getPermissions()
+            subtitle: Function
+            
+      - name: setData.ts
+        subtitle: Module
+        children:
+          - name: setData()
+            subtitle: Function
+            
+      - name: setPrivacy.ts
+        subtitle: Module
+        children:
+          - name: setPrivacy()
+            subtitle: Function
+            
+      - name: getPrivacy.ts
+        subtitle: Module
+        children:
+          - name: getPrivacy()
+            subtitle: Function
+            
+      - name: setPermission.ts
+        subtitle: Module
+        children:
+          - name: setPermission()
+            subtitle: Function
+            
+      - name: getPermissions.ts
+        subtitle: Module
+        children:
+          - name: getPermissions()
+            subtitle: Function
+            
+  - name: AWS SDK
+    subtitle: Library
+    description: Standard library for programmatically accessing AWS resources
+    color: purple
+    children:
+      - name: DocumentClient
+        subtitle: Module
+        description: Library module for accessing and modifying DynamoDB tables
+        icon: 
+          path: AWS/_General/SDK.svg
+        
+      - name: S3
+        subtitle: Module
+        description: Library module for accessing and modifying S3 Buckets
+        icon: 
+          path: AWS/_General/SDK.svg
+        
+        
+      - name: SES
+        subtitle: Module
+        description: Library module for sending emails using SES
+        icon: 
+          path: AWS/_General/SDK.svg
+        
+        
+  - name: Typescript
+    subtitle: Programming Language
+    description: A statically-typed superset of Javascript
+    
+  - name: HTML
+    subtitle: Markup Language
+    description: Language used to create static web pages
+    
+  - name: LESS
+    subtitle: Styling Language
+    description: An enhanced superset of CSS
+    
+  - name: WebPack
+    subtitle: Bundler
+    description: A configureable bundler used to merge javascript, css, html and other files into distributable packages
+    
+  - name: Lodash
+    subtitle: Library
+    description: A Javascript library offering tools for functional programming
+    
+  - name: Front-End
+    style: dashed
+
+perspectives:
+  - name: Request
+    color: Firebrick
+    additionalContext: super-only
+    relations:
+      - from: Users
+        to: ilograph.com
+        label: Static requests
+        
+      - from: Route 53//app.ilograph.com
+        to: d3dxxxxx.cloudfront.net
+        label: Alias target
+        
+      - from: Route 53//www.ilograph.com
+        to: d2wxxxxx.cloudfront.net
+        label: Alias target
+        
+      - from: Route 53//blog.ilograph.com
+        to: d3exxxxx.cloudfront.net
+        label: Alias target
+        
+      - from: d3dxxxxx.cloudfront.net
+        to: S3/app.ilograph.com
+        label: Origin
+        
+      - from: d2wxxxxx.cloudfront.net
+        to: S3/www.ilograph.com
+        label: Origin
+        
+      - from: d3exxxxx.cloudfront.net
+        to: S3/blog.ilograph.com
+        label: Origin
+      - from: Users
+        to: ilograph.com
+        label: Requests
+    
+      - from: api.ilograph.com
+        to: ilographV0
+        label: Alias target
+        
+      - from: graph
+        to: listIlographs
+        label: GET
+
+        
+      - from: graph/ns
+        to: getIlograph
+        label: GET
+        
+      - from: permissions
+        to: getPermissions
+        label: GET
+        
+      - from: permissions
+        to: setPermission
+        label: PUT
+        
+      - from: graph/ns
+        to: createIlograph
+        label: POST
+        
+      - from: graph/ns
+        to: deleteIlograph
+        label: DELETE
+        
+      - from: graph//data
+        to: setIlographData
+        label: PUT
+      
+      - from: graph//private
+        to: setPrivacy
+        label: PUT
+        
+      - from: graph//private
+        to: getPrivacy
+        label: GET
+        
+      - from: getPrivacy
+        to: Ilographs
+        label: Read
+        
+      - from: setPrivacy
+        to: Ilographs
+        label: Write
+        
+      - from: getIlograph
+        to: Permissions, Ilographs, diagrams.ilograph.com
+        label: Read
+        
+      - from: createIlograph
+        to: Permissions, Ilographs, History, diagrams.ilograph.com
+        label: Write
+        
+      - from: deleteIlograph
+        to: Permissions
+        label: Read/Write
+        
+      - from: deleteIlograph
+        to: Ilographs
+        label: Write
+        
+      - from: listIlographs
+        to: Permissions
+        label: Read
+        
+      - from: setIlographData
+        to: Ilographs, History, diagrams.ilograph.com
+        label: Write
+        
+      - from: setIlographData
+        to: Permissions
+        label: Read
+        
+      - from: getPermissions
+        to: Permissions
+        label: Read
+        
+      - from: setPermission
+        to: Permissions
+        label: Read/Write
+        
+      - from: ilographV0
+        to: iloUsers
+        label: Authorizor
+        
+      - from: setPermission
+        to: notifications@ilograph.com
+        label: Email using
+        
+    notes: |-
+      Ilograph uses a classic serverless architecture on AWS with API Gateway, Lambda and DynamoDB.
+      
+      *Click on a resource to focus it, or click this button to start the walkthrough:*
+      
+    walkthrough:
+      - detail: 0.0001
+        text: |- 
+          Ilograph is a SaaS app for creating interactive diagrams. It runs on a classic serverless architecture on Amazon Web Services (AWS).
+          
+          *Click "Next" below to continue.*
+          
+      - detail: .1
+        text: |- 
+          The Ilograph back-end relies on eight AWS services used in concert: *Route 53*, *CloudFront*, *API Gateway*, *Lambda*, *SES*, *Cognito*, *S3* and *DynamoDB*.
+          
+          We'll explore the role each service plays in this walkthrough.
+      
+      - select: ilograph.com
+        text: |- 
+          When using Ilograph, users make requests to one of four subdomains on the ilograph.com parent domain.
+
+          In *Route 53*, the *ilograph.com* **hosted zone** contains alias records that target other resources in the architecture.
+          
+      - highlight: ilograph.com/blog.ilograph.com, ilograph.com/www.ilograph.com, ilograph.com/app.ilograph.com
+        detail: 1
+        text:  |-
+          The *blog*, *www*, and *app* subdomains serve static files, such as HTML, javascript and images
+          
+          These subdomain records each target a corresponding CloudFront **distribution**.
+        
+      - select: d3exxxxx.cloudfront.net, d2wxxxxx.cloudfront.net, d3dxxxxx.cloudfront.net
+        expand: Amazon Web Services
+        text: |-
+          Files are cached in CloudFront distributions for 24 hours unless manually invalidated.
+          
+          Serving assets via CloudFront improves performance and reduces costs.
+        
+      - select: S3/blog.ilograph.com, S3/www.ilograph.com, S3/app.ilograph.com
+        text: |-
+          Each distribution is configured to use an S3 bucket as an **origin**.
+          
+          If a distribution does not have a cached version of a requested file, or the cache has expired, the distribution requests the file from its origin.
+        
+      - select: ilograph.com
+        expand: ^
+        highlight: ilograph.com/api.ilograph.com
+        text: |-
+          Dynamic requests are made to the *api* subdomain.
+          
+          Such requests read, create, modify and delete individual ilograph diagrams.
+        
+      - select: ilographV0
+        expand: Amazon Web Services
+        text: |- 
+          The *api* subdomain is configured in Route 53 to target the *ilographV0* API in API Gateway.
+          
+          *ilographV0* is a relatively small [REST API](https://www.google.com/search?q=rest+api). It defines five **resources** and nine methods (GETs, PUTs, etc.) that can be invoked on them.
+          
+      - highlight: iloUsers
+        text: |- 
+           The *ilographV0* API uses the *iloUsers* user pool as an Authorizor. Only users who are members of *iloUsers* may invoke this API.
+          
+      - select: Lambda
+        text: |-
+          Each method in the API is configured to invoke a **lambda**. Lambdas are "serverless" functions that can be invoked at any time.
+          
+          These particular lambdas read, create, modify, delete and list ilograph diagrams.
+          
+      - text: |-
+          The code these lambdas execute is explored in more detail in the [Code] perspective.
+          
+          Use the **perspective tray** at the bottom of this app to change the current perspective. Don't worry, you'll be able to return here using your browser's back button.
+          
+      - highlight: diagrams.ilograph.com
+        text: |-
+          Lambdas that create, retrieve, and modify diagrams read and write diagram files to the S3 **bucket** *diagrams.ilograph.com*
+        
+      - select: DynamoDB
+        text: |- 
+          Lambdas also read and write diagram metadata to the *Ilographs*, *Permissions*. and *History* DynamoDB tables.
+          
+          Like lambdas, DynamoDB tables are "serverless" tables that can be accessed at any time.
+       
+      - highlight: DynamoDB/Ilographs
+        text: |- 
+          *Ilographs* stores the metadata for each ilograph diagram. 
+          
+          Each row in the table stores the name, creation time and modified time for one diagram.
+          
+      - highlight: DynamoDB/Permissions
+        text: |- 
+          The *Permissions* table keeps track of which users can read or modify each diagram.
+          
+          Each row in the table stores one permission for one diagram.
+          
+      - highlight: DynamoDB/History
+        text: |- 
+          The *History* table records historical metadata about diagrams.
+          
+          Each row in the table stores the metadata for a specific version of a diagram. This data is recorded whenever a diagram is modified.
+          
+      - select: setPermission
+        highlight: notifications@ilograph.com
+        text: |- 
+          Lastly, when a users is granted permissions to edit or view a diagram via *setPermission*, they are sent an email from the *notifications@ilograph.com* address using SES.
+          
+      - expand: ^
+        select: ^
+        text: |- 
+          I hope this walkthrough was informative! Be sure to check out the other perspectives using the **perspective tray** at the bottom of this app. 
+          
+          The source of this diagram is also visible using the tab at the left of the app (desktop only).
+    
+  - name: Code
+    defaultRelationLabel: Calls
+    relations:
+      - from: getIlograph
+        to: getIlograph()
+        label: Handler
+        description: Lambdas are configured to call a given function, called a "handler", when invoked
+        
+      - from: setIlographData
+        to: setData()
+        label: Handler
+        
+      - from: setPermission
+        to: setPermission()
+        label: Handler
+        
+      - from: getPrivacy
+        to: getPrivacy()
+        label: Handler
+        
+      - from: setPrivacy
+        to: setPrivacy()
+        label: Handler
+        
+      - from: deleteIlograph
+        to: deleteIlograph()
+        label: Handler
+        
+      - from: getPermissions
+        to: getPermissions.ts/getPermissions()
+        label: Handler
+        
+      - from: createIlograph
+        to: createIlograph()
+        label: Handler
+        
+      - from: getIlograph(), setData(), setPrivacy(), getPrivacy(), setPermission()
+        to: getPermission()
+        
+      - from: getIlograph()
+        to: cacheEntry(), getEntryFromCache()
+        
+      - from: getPermissions.ts/getPermissions(), deleteIlograph()
+        to: getPermissions()
+              
+      - from: listIlographs
+        to: listIlographs()
+        label: Handler
+        
+      - from: Ilograph Back-End
+        to: AWS SDK
+        label: Uses
+        description: DocumentClient is used throughout this repository
+        
+        
+    notes: |-
+      The lambda code is stored in the Ilograph Back-End git repository.
+      
+      Each lambda has an assigned function, called a **handler**, which is executed when the lambda is invoked. This function can use other functions in the repository.
+      
+      Nearly every function makes use of the *DocumentClient* module in the AWS SDK in order to access data in DynamoDB tables. The *S3* module is used to read from and write to S3, and the *SES* module is used to send emails using SES.
+      
+      Click on a resource to focus it.
+      
+  - name: Region
+    color: green
+    defaultRelationLabel: Uses
+    relations:
+      - from: Ilograph
+        to: d3dxxxxx.cloudfront.net, d2wxxxxx.cloudfront.net, d3exxxxx.cloudfront.net, Route 53/ilograph.com, S3/blog.ilograph.com, S3/www.ilograph.com, S3/app.ilograph.com, S3/diagrams.ilograph.com, ilographV0, deleteIlograph, createIlograph, getIlograph, listIlographs, setIlographData, setPrivacy, getPrivacy, getPermissions, setPermission, Permissions, Ilographs, History, notifications@ilograph.com
+        
+    overrides:
+      - resourceId: d3dxxxxx.cloudfront.net, d2wxxxxx.cloudfront.net, d3exxxxx.cloudfront.net, Route 53/ilograph.com
+        parentId: Global
+        
+      - resourceId: S3/blog.ilograph.com, S3/www.ilograph.com, S3/app.ilograph.com, S3/diagrams.ilograph.com, ilographV0, deleteIlograph, createIlograph, getIlograph, listIlographs, setIlographData, setPrivacy, Permissions, Ilographs, getPrivacy, getPermissions, setPermission, History, notifications@ilograph.com
+        parentId: N. Virginia
+        
+    additionalContext: super-only
+        
+    notes: |-
+      The ilograph.com hosted zone (Route 53) and CloudFront distributions are global resources not tied to a particular region.
+      
+      All other cloud resources are hosted in the Northern Virginia region (us-east-1).
+      
+      *Click on a resource to focus it.*
+
+  - name: Tech Stack
+    color: dimgray
+    defaultRelationLabel: Uses
+    relations:
+      - from: Ilograph
+        to: Route 53, CloudFront, API Gateway, Lambda,  DynamoDB, S3, Cognito, SES
+        
+      - from: Ilograph
+        to: Typescript, HTML, LESS, WebPack, Lodash
+        
+    overrides:
+      - resourceId: Typescript, HTML, LESS, WebPack, Lodash
+        parentId: Front-End
+    
+    additionalContext: super-only
+    
+    notes: |- 
+      Ilograph uses a variety of AWS-managed services for its back-end. See the [Request] perspective for details on how they are used.
+      
+      The front-end is written in Typescript, LESS (a css variant) and HTML. It makes extensive use of Lodash, and uses WebPack for bundling. It does not use React, Angular or any other front-end framework.
+      
+      *Click on a resource to focus it.*
+      
+  - name: References
+    color: OrangeRed
+    defaultRelationLabel: References
+    hidden: true
+    relations: 
+    - from: Permissions/User, History//User, Ilographs//Creator
+      to: iloUsers/Users
+      
+    - from: History/Diagram Name, History/Sha, Ilographs/Diagram Name, Ilographs/Sha, Permissions/Diagram Name
+      to: diagrams.ilograph.com/Diagrams
+      
+    notes: |-
+        Attributes in the DynomoDB tables reference both users managed by Cognito and diagram files stored in S3.
+
